@@ -1,46 +1,116 @@
-#ifndef PATHFINDER
-#define PATHFINDER
+#ifndef PATHFINDER_H
+#define PATHFINDER_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <time.h>
-#include <stdbool.h>
-#include <fcntl.h>
-#include <malloc/malloc.h>
-#include "libmx.h"
+#include "../libmx/inc/libmx.h"
 
-//---ERROR PACK---
-char **mx_pathfinder_errorc_heck_all(char **argv, int argc, int *isl_count);
-void mx_pathfinder_check_the_line(char *mat);
+//Error
+typedef enum e_error {
+    INVLD_CMD_ARGS,
+    FILE_DEXIST,
+    FILE_EMPTY,
+    INVLD_FRST_LINE,
+    INVLD_LINE,
+    INVLD_NUM_ISLDS
+} t_error;
 
-//---PARTH PACK---
-char **mx_pathfinder_uniq_matrix(char **matrix, int *isl_count);
-char **mx_pathfinder_matrix_init(char *argv, int *isl_count);
-int **mx_pathfinder_adj_matrix(char **mat, char **uniq_mat, int count);
-int **mx_pathfinder_rout(int **adj_mat, int count);
-void mx_pathfinder_output(char **uniq_mat, int **adj_mat, int **rout_mat);
-void mx_pathfinder_print(char **uniq_mat, int **adj_mat, int *stack);
+//Struct
+typedef struct s_island t_island;
+typedef struct s_link t_link;
+typedef struct s_path t_path;
+typedef struct s_algorithm t_algorithm;
+typedef struct s_file t_file;
+typedef struct s_main t_main;
 
-//---UTILS FOR PATHFINDER---
-void mx_pathfinder_clear(char **mat, char **uniq_mat, int **adj_mat, int **rout_mat);
-int **mx_pathfinder_adj_matrix_fill(int c);
-void mx_error_invalid_line_value(int line);
-char *mx_check_first_word(char *mat, int line);
-char *mx_check_second_word(char *mat, int line);
-char *mx_check_third_word(char *mat, int line);
-void mx_pathfinder_error_invalid_first_line(char *str);
-void mx_pathfinder_error_invalid_argc(int i);
-char *mx_pathfinder_error_invalid_name(char *str);
-int *mx_pathfinder_stack_fill(int *res);
-void mx_pathfiner_stack(int *stack, int i, int *a);
-int **mx_pathfinder_rout_matrix_init(int c);
-void mx_pathfinder_print_path(char **uniq_mat, int *stack, int len);
-void mx_pathfinder_print_route(char **uniq_mat, int *stack, int len);
-void mx_pathfinder_print_dist(int **adj_mat, int *stack, int len);
-void mx_pathfinder_error_num();
-char **mx_pathfinder_temp_matrix(char **src);
-void mx_pathfinder_dupdel(char **buf, int *count);
+struct s_island {
+    int index;
+    char *name;
+    t_link *links;
+    t_path **paths;
+    t_island *next;
+};
+
+struct s_link {
+    int weight;
+    t_island *linked_island;
+    t_link *next;
+};
+
+struct s_path {
+    t_link *route;
+    int dist;
+    bool is_shortest;
+    t_path *next;
+};
+
+struct s_algorithm {
+    t_island *start;
+    t_island *end;
+    int weight;
+    t_island *start_remainder;
+};
+
+struct s_file {
+    int fd;
+    char *name;
+    char *filearray;
+    char **array;
+};
+
+struct s_main {
+    t_file *file;
+    t_island *islands;
+    t_algorithm *algorithm;
+    int count_island;
+};
+
+int mx_atoi(const char *str);
+bool mx_isalpha(int c);
+bool mx_isdigit(int c);
+char *mx_itoa(int number);
+void mx_printstr(const char *s);
+void mx_printerr(const char *s);
+
+//Validation
+void mx_printerr_pf(t_error err, const char *s);
+void mx_validation(t_main *main);
+void mx_validation_cmd_args(int argc);
+void mx_validation_file_empty(t_main *main);
+void mx_validation_file_dexist(t_main *main);
+void mx_validation_check_end_line(char *array);
+void mx_validation_check_weight(int i, int weight);
+void mx_validation_first_line(t_main *main);
+void mx_validation_num_islnd(t_main *main);
+void mx_validation_check_delim(char **array);
+void mx_validation_check_island_one_isalpha(char **array);
+void mx_validation_check_island_two_isalpha(char **array);
+void mx_validation_check_number(char **array);
+//Graph island
+t_island *mx_graph_island_create(char *name);
+void mx_graph_island_add(t_island **islands, t_island *island);
+t_island *mx_graph_island_get(t_island **islands, char *name);
+//Graph link
+t_link *mx_graph_link_create(t_island *linked_island);
+void mx_graph_link_add(t_link **links, t_link *link);
+void mx_graph_link_push_back(t_link **links, t_link *link);
+void mx_graph_link_pop_back(t_link **links);
+void mx_graph_link_set(t_link **links, t_island *linked_island, int weight);
+//Graph path
+t_path *mx_graph_path_create(t_link *routes);
+void mx_graph_path_push_front(t_path **paths, t_path *path);
+void mx_graph_path_push_back(t_path **paths, t_path *path);
+//Pathainder
+void mx_pathainder_parse(t_main *main);
+void mx_pathainder_algorithm(t_main *m);
+void mx_pathainder_prepare_for_algorithm(t_main *main);
+void mx_pathainder_print_paths(t_main *main);
+//Until
+char **mx_until_file_to_arr(char *file);
+void mx_until_bzero(void *s, size_t n);
+void *mx_until_memalloc(size_t size);
+//Main
+t_file *mx_crate_file(char *argv[]);
+t_algorithm *mx_create_algorithm();
+t_main *mx_create_main(char *argv[]);
+int main(int argc, char *argv[]);
 
 #endif

@@ -1,7 +1,8 @@
-#include "../inc/libmx.h"
+#include "libmx.h"
 
 void mx_print_unicode(wchar_t c) {
 	char byte[4];
+ 
 	if (c<0x80) {
 		byte[0] = (c >> 0 & 0x7F) | 0x00;
 		write(1, &byte, 1);

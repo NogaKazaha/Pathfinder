@@ -1,15 +1,24 @@
-#include "../inc/libmx.h"
+#include "libmx.h"
 
-void mx_printint(int num) {
-    if (num == -2147483648) {
-        write(1, "-2147483648", 11);
-        return;
+void mx_printint(int n) 
+{
+    if (n != 0) {
+        char str[20];
+        int j = 0;
+        int i = 0;
+        long val = n;
+        if (val < 0)
+            val = -val;
+        while (val != 0) {
+            str[i++] = val % 10 + '0';
+            val /= 10;
+        }
+        if (n < 0)
+            str[i++] = '-';
+        for (j = i - 1; j >= 0; --j) {
+            mx_printchar(str[j]);
+        }
+    } else {
+        mx_printchar('0');
     }
-    if (num < 0) {
-        mx_printchar('-');
-        num *= -1;
-    }
-    if (num > 9)
-        mx_printint(num / 10);
-    mx_printchar(num % 10 + 48);
 }

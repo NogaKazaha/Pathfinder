@@ -1,25 +1,27 @@
-.PHONY: all libmx uninstall clean reinstall
+NAME = libmx.a
 
-SRCS := $(wildcard src/*.c)
-HDRS := $(wildcard inc/*.h)
+SRC = src
 
-all: libmx
+OBJ = obj
 
-libmx:
-	@printf "\r\33[2K$(NAME) \033[33;1mcompile \033[0m$(<:$(SRCD)/%.c=%) "
-	@clang -c ${HDRS} ${SRCS}
-	@printf "\r\33[2K$@ \033[32;1mcreated\033[0m\n"
-	@mkdir obj
-	@mv *.o obj
-	@ar -rc libmx.a obj/*.o
-	@ranlib libmx.a
+INC = inc
 
+FLAGS = -std=c11 -Wall -Wextra -Werror -Wpedantic
+
+all: install clean
+
+install:
+		@clang $(FLAGS) -I $(INC) -c $(SRC)/*.c
+		@mkdir -p $(OBJ)
+		@cp *.o $(OBJ)
+		@ar -rc $(NAME) $(OBJ)/*.o
+		@ranlib $(NAME)
+		@rm -rf *.o
 
 uninstall: clean
-	@rm -f libmx.a
+		@rm -rf $(NAME)
 
 clean:
-	@rm -f inc/*.gch
-	@rm -rdf obj
+		@rm -rf $(OBJ)
 
-reinstall: uninstall libmx
+reinstall: all
