@@ -14,20 +14,22 @@
 </head>
 
 <body>
-    <table width="100%" border="0" cellpadding="4" align="left">  
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Date</th>
-            <th>Grade</th>
-        </tr>
-        <tr>
-            <th>Pathfinder</th>
-            <th>Learn pathfinding algorithms.</th>
-            <th>29.10.2020</th>
-            <th>98</th>
-        </tr>
-    </table>
+    <p align="center">
+        <table width="100%" border="0" cellpadding="4" align="left">  
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Grade</th>
+            </tr>
+            <tr>
+                <th>Pathfinder</th>
+                <th>Learn pathfinding algorithms.</th>
+                <th>29.10.2020</th>
+                <th>98</th>
+            </tr>
+        </table>
+    </p>
 </body>
 
 <footer>
