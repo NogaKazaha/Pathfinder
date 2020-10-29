@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    <p align="center">
         <table width="100%" border="0" cellpadding="4" align="left">  
             <tr>
                 <th>Name</th>
@@ -29,7 +28,6 @@
                 <th>98</th>
             </tr>
         </table>
-    </p>
 </body>
 
 <footer>
