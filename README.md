@@ -25,6 +25,6 @@
 </body>
 
 <footer>
-<p align="center"><img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30"></p>
+<p><p align="center"><img src="https://emojis.slackmojis.com/emojis/images/1531849430/4246/blob-sunglasses.gif?1531849430" width="30"></p></p>
 <h4 align="center">Feel free to use this repository for your own UCODE works (if you are a UCODE student too). I'm working on Marathon C in September-October 2020.</h4>
 </footer>
