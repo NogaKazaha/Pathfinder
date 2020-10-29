@@ -1,9 +1,8 @@
-#include "libmx.h"
+#include "../inc/libmx.h"
 
-char *mx_strdup(const char *str) {
-	int size = mx_strlen(str);
-	char *new_str = mx_strnew(size);
-	if (new_str == NULL) return NULL;
-	new_str = mx_strcpy(new_str, str);
-	return new_str;
+char *mx_strdup(const char *s1)
+{
+    char *dup = mx_strnew(mx_strlen(s1));
+    mx_strcpy(dup, s1);
+    return dup;
 }

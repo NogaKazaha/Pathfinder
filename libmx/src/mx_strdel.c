@@ -1,6 +1,9 @@
-#include "libmx.h"
+#include "../inc/libmx.h"
 
-void mx_strdel(char **str) {
-	free(*str);
-	*str = 0;
+void mx_strdel(char **str) 
+{
+    if (*str) {
+        free(*str);
+        *str = NULL;
+    }
 }

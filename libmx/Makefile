@@ -20,6 +20,8 @@ install:
 
 uninstall: clean
 		@rm -rf $(NAME)
+		@rm -rf $(OBJ)
+		@rm -rf *.a
 
 clean:
 		@rm -rf $(OBJ)

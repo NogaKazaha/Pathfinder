@@ -16,6 +16,9 @@ install:
 
 uninstall: clean
 		@rm -rf $(NAME)
+		@rm -rf $(OBJ)
+		@rm -rf pathfinder
+		@make uninstall -C ./libmx
 
 clean:
 		@rm -rf $(OBJ)
