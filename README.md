@@ -9,7 +9,7 @@
         <a href="https://lms.ucode.world/users/plitovka/" target="_blank">
             <img src="https://github.com/PAXANDDOS/UCODE-Marathon-C/blob/master/.git_images/lms.png?raw=true" height="100px">
         </a>
-        <h2 align="center">This is my repository for UCODE marathon works, such as Sprints, Races and Checkpoints. You can find our Endgame <a href="https://github.com/PAXANDDOS/UCODE-Endgame-C" target="_blank">here.</a></h2>
+        <h2 align="center">This is my repository for UCODE marathon works, such as Sprints, Races and Checkpoints. You can find our Endgame <a href="https://github.com/NogaKazaha/Ucode-Endgame" target="_blank">here.</a></h2>
     </p>
 </head>
 
